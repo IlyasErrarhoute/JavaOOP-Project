@@ -17,12 +17,14 @@ public class BuergeraemterControl {
 		try {
 		if ("csv".equals(typ)) {
 			buergeraemterModel.schreibeBuergeraemterInCsvDatei();
-			buergeraemterView.zeigeInformationsfensterAn("saved ");
+			buergeraemterView.zeigeInformationsfensterAn("saved in csv");
 			
 			
 		}
 		else {
-			buergeraemterView.zeigeFehlermeldungsfensterAn("noch nocht implementiert!");
+			buergeraemterModel.schreibeBuergeraemterInTxtDatei();
+			buergeraemterView.zeigeInformationsfensterAn("saved in txt");
+//			buergeraemterView.zeigeFehlermeldungsfensterAn("noch nocht implementiert!");
 		}
 		}
 		catch (Exception e) {
