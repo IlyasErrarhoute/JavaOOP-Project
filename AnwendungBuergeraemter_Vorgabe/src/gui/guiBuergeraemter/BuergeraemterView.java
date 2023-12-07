@@ -1,4 +1,4 @@
-package gui;
+package gui.guiBuergeraemter;
 
 
 
@@ -162,7 +162,7 @@ public class BuergeraemterView {
    	            Float.parseFloat(txtGeoeffnetBis.getText()),
     		    txtStrasseHNr.getText(),
     		    txtDienstleistungen.getText().split(";"));
-    		zeigeInformationsfensterAn("Das Bürgeramt wurde aufgenommen!");
+//    		zeigeInformationsfensterAn("Das Bürgeramt wurde aufgenommen!");
     		buergeraemterModel.setBuergeramt(this.buergeramt);
        	}
        	catch(Exception exc){
@@ -170,7 +170,7 @@ public class BuergeraemterView {
      	}
     }
    
-    private void zeigeBuergeraemterAn(){
+     void zeigeBuergeraemterAn(){
     	if(this.buergeramt != null){
     		txtAnzeige.setText(
     			this.buergeramt.gibBuergeramtZurueck(' '));
