@@ -2,6 +2,8 @@ package gui.guiBuergeraemter;
 
 
 
+import java.util.ArrayList;
+
 import business.BuergeraemterModel;
 import business.Buergeramt;
 import javafx.event.*;
@@ -134,24 +136,26 @@ public class BuergeraemterView {
 	            zeigeBuergeraemterAn();
 	        } 
    	    });  
-	    mnItmCsvExport.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				schreibeBuergeraemterInDatei("csv");
-				// TODO Auto-generated method stub
-				
-			}
-		});
-	    mnItmTxtExport.setOnAction(new EventHandler<ActionEvent>() {
-	    	
-	    	@Override
-	    	public void handle(ActionEvent event) {
-	    		schreibeBuergeraemterInDatei("txt");
-	    		// TODO Auto-generated method stub
-	    		
-	    	}
-	    });
+	    mnItmCsvExport.setOnAction(e->schreibeBuergeraemterInDatei("csv"));
+	    mnItmTxtExport.setOnAction(e->schreibeBuergeraemterInDatei("txt"));
+//	    mnItmCsvExport.setOnAction(new EventHandler<ActionEvent>() {
+//			
+//			@Override
+//			public void handle(ActionEvent event) {
+//				schreibeBuergeraemterInDatei("csv");
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
+//	    mnItmTxtExport.setOnAction(new EventHandler<ActionEvent>() {
+//	    	
+//	    	@Override
+//	    	public void handle(ActionEvent event) {
+//	    		schreibeBuergeraemterInDatei("txt");
+//	    		// TODO Auto-generated method stub
+//	    		
+//	    	}
+//	    });
     }
     
     private void nehmeBuergeramtAuf(){
@@ -163,22 +167,42 @@ public class BuergeraemterView {
     		    txtStrasseHNr.getText(),
     		    txtDienstleistungen.getText().split(";"));
 //    		zeigeInformationsfensterAn("Das Bürgeramt wurde aufgenommen!");
-    		buergeraemterModel.setBuergeramt(this.buergeramt);
+    		buergeraemterModel.addBuergeramt(this.buergeramt);
+//    		setBuergeramt(this.buergeramt);
        	}
        	catch(Exception exc){
        		zeigeFehlermeldungsfensterAn(exc.getMessage());
      	}
     }
    
-     void zeigeBuergeraemterAn(){
-    	if(this.buergeramt != null){
-    		txtAnzeige.setText(
-    			this.buergeramt.gibBuergeramtZurueck(' '));
-    	}
-    	else{
-    		zeigeInformationsfensterAn("Bisher wurde kein Bürgeramt aufgenommen!");
-    	}
-    }	
+//     void zeigeBuergeraemterAn(){
+//    	if(this.buergeramt != null){
+//    		txtAnzeige.setText(
+//    			this.buergeramt.gibBuergeramtZurueck(' '));
+//    	}
+//    	else{
+//    		zeigeInformationsfensterAn("Bisher wurde kein Bürgeramt aufgenommen!");
+//    	}
+//    }	
+    void zeigeBuergeraemterAn(){
+   	 ArrayList<Buergeramt> buergeramts = buergeraemterModel.getBuergeramt();
+   	 if (buergeraemterModel.getBuergeramt().size() > 0) {
+			StringBuffer text = new StringBuffer();
+			for (Buergeramt buergeramt : buergeramts) {
+				text.append(buergeramt.gibBuergeramtZurueck(' ')+ '\n');
+			}
+			this.txtAnzeige.setText(text.toString());
+			
+			
+		}
+   	 
+   	 else{
+   		 zeigeInformationsfensterAn(
+   				 "Bisher wurde kein Bürgeramt aufgenommen!");
+   	 }
+
+   }	
+
 
      void zeigeInformationsfensterAn(String meldung){
     	new MeldungsfensterAnzeiger(AlertType.INFORMATION,

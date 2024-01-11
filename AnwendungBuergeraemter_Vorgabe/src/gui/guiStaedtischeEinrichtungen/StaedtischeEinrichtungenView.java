@@ -1,6 +1,9 @@
 package gui.guiStaedtischeEinrichtungen;
    
+import java.util.ArrayList;
+
 import business.BuergeraemterModel;
+import business.Buergeramt;
 import gui.guiBuergeraemter.BuergeraemterControl;
 import gui.guiBuergeraemter.BuergeraemterView;
 import javafx.event.*;
@@ -78,15 +81,25 @@ public class StaedtischeEinrichtungenView {
     }
    
      void zeigeBuergeraemterAn(){
-    		if(buergeraemterModel.getBuergeramt() != null){
-    			txtAnzeigeBuergeraemter.setText(
-    				buergeraemterModel.getBuergeramt()
- 				.gibBuergeramtZurueck(' '));
-    		}
-    		else{
-    			zeigeInformationsfensterAn(
- 				"Bisher wurde kein Bürgeramt aufgenommen!");
-    		}
+    	 ArrayList<Buergeramt> buergeramts = buergeraemterModel.getBuergeramt();
+    	 if (buergeraemterModel.getBuergeramt().size() > 0) {
+			StringBuffer text = new StringBuffer();
+			for (Buergeramt buergeramt : buergeramts) {
+				text.append(buergeramt.gibBuergeramtZurueck(' ')+ '\n');
+			}
+			this.txtAnzeigeBuergeraemter.setText(text.toString());
+			
+		}
+    	 
+    	 else{
+    		 zeigeInformationsfensterAn(
+    				 "Bisher wurde kein Bürgeramt aufgenommen!");
+    	 }
+//    		if(buergeraemterModel.getBuergeramt() != null){
+//    			txtAnzeigeBuergeraemter.setText(
+//    				buergeraemterModel.getBuergeramt()
+// 				.gibBuergeramtZurueck(' '));
+//    		}
     }	
     
     private void zeigeInformationsfensterAn(String meldung){
